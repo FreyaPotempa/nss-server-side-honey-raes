@@ -68,6 +68,8 @@ class TicketView(ViewSet):
 
         ticket.employee = assigned_employee
 
+        ticket.date_completed = request.data['date_completed']
+
         ticket.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
