@@ -22,6 +22,12 @@ class TicketView(ViewSet):
             if "status" in request.query_params:
                 if request.query_params['status'] == "done":
                     tickets = tickets.filter(date_completed__isnull=False)
+                elif request.query_params['status'] == "unclaimed":
+                    tickets = tickets.filter(
+                        employee__isnull=True, date_completed__isnull=True)
+                elif request.query_params['status'] == "inprogress":
+                    tickets = tickets.filter(
+                        employee__isnull=False, date_completed__isnull=True)
 
         else:
             tickets = ServiceTicket.objects.filter(
